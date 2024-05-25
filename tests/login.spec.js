@@ -1,32 +1,32 @@
 import {test, expect} from '@playwright/test'
+import { LoginPage } from '../page-objects/login-page';
+
+let loginPage;
 
 test.describe('Login scenarios',{tag:'@login'},()=>{
+    test.beforeAll(async({page})=>{
+        loginPage = new LoginPage(page);
+    })
     test.beforeEach(async ({page}) =>{
-        await page.goto("https://www.saucedemo.com/");
+        await loginPage.goto();
     })
 
     test('successful login',async ({page}) =>{
-        await page.locator('#user-name').fill('standard_user');
-        await page.locator('#password').fill('secret_sauce');
-        await page.locator('#login-button').click();
+        loginPage.login('standard_user','secret_sauce');
         await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html');
     })
 
     test('login using creds of a locked out user',async ({page})=>{
-        await page.locator('#user-name').fill('locked_out_user');
-        await page.locator('#password').fill('secret_sauce');
-        await page.locator('#login-button').click();
-        const errorMesage = page.locator('[data-test="error"]');
-        await expect(errorMesage).toHaveText("Epic sadface: Sorry, this user has been locked out.");
+        loginPage.login('locked_out_user','secret_sauce');
+        await expect(page.locator('[data-test="error"]'))
+            .toHaveText("Epic sadface: Sorry, this user has been locked out.");
         await expect(page).toHaveURL('https://www.saucedemo.com/');
     })
 
     test('login using incorrect creds',async ({page})=>{
-        await page.locator('#user-name').fill('incorrect_username');
-        await page.locator('#password').fill('secret_sauce');
-        await page.locator('#login-button').click();
-        const errorMesage = await page.locator('[data-test="error"]');
-        await expect(errorMesage).toHaveText("Epic sadface: Username and password do not match any user in this service");
+        loginPage.login('incorrect_username','secret_sauce');
+        await expect(page.locator('[data-test="error"]'))
+            .toHaveText("Epic sadface: Username and password do not match any user in this service");
         await expect(page).toHaveURL('https://www.saucedemo.com/');
     })
 
