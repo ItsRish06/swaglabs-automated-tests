@@ -23,4 +23,19 @@ test.describe("Cart feature tests", { tag: "@cart" }, () => {
 
     expect(cartItems).toMatchObject(homePage.cartItems);
   });
+
+  test("Remove item from cart", async ({page}) =>{
+    const homePage = new HomePage(page);
+    await homePage.addToCart(0);
+    await homePage.addToCart(1);
+    await page.locator(".shopping_cart_link").click();
+
+    let cartPage = new CartPage(page);
+    await cartPage.removeFromCart(0);
+    await cartPage.removeFromCart(0);
+
+    let cartItems = await cartPage.getCartItems();
+    expect(cartItems.length).toBe(0);
+
+  })
 });
