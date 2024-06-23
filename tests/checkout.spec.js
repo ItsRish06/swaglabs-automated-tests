@@ -3,7 +3,7 @@ import { LoginPage } from "../page-objects/login-page";
 import { HomePage } from "../page-objects/home-page";
 import { CheckoutPage } from "../page-objects/checkout-page";
 
-test.describe("Checkout feature tests", { tag: "@cart" }, () => {
+test.describe("Checkout feature tests", { tag: "@checkout" }, () => {
   test.beforeEach(async ({ page }) => {
     const loginPage = new LoginPage(page);
     await loginPage.goto();
