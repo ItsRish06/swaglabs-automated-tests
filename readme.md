@@ -1,7 +1,7 @@
 # SwagLabs Automation Test
 This project contains automated tests for the SwagLabs website using Playwright. The tests cover various functionalities such as login, cart management, and checkout process.
 
-# Project Structure
+## Project Structure
 ```.gitignore
 package.json
 page-objects/
@@ -23,16 +23,16 @@ tests/
 - **test-results/**: Contains the test results.
 - **tests/**: Contains the test specifications.
 
-# Test Reports 
+## Test Reports 
 After running the tests, an HTML report will be generated in the playwright-report directory. You can open index.html to view the test results.
 
-# Page Objects
+## Page Objects
 - **CartPage**: Represents the cart page and contains methods to interact with cart items.
 - **CheckoutPage**: Represents the checkout page and contains methods to interact with the checkout process.
 - **HomePage**: Represents the home page and contains methods to interact with inventory items.
 - **LoginPage**: Represents the login page and contains methods to perform login actions.
 
-# Test Specifications
+## Test Specifications
 - **cart.spec.js**: Contains tests for cart functionalities such as adding and removing items from the cart.
 - **checkout.spec.js**: Contains tests for the checkout process including form validation and order completion.
 - **login.spec.js**: Contains tests for login scenarios including successful login, login with locked out user, and login with incorrect credentials.
